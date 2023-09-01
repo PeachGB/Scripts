@@ -9,13 +9,16 @@ if len(sys.argv) > 1:
     links = soup.find_all("h3")
     parents = list()
     for i, link in enumerate(links):
-        print(i, link.get_text())
+        if link.find_parent('a') != None:
+            print(i, link.get_text())
         
         parents.append(link.find_parent('a'))
     x = int(input("Select link: "))
-    href = parents[x].get('href')
-    webbrowser.open('http://google.com' + href)
-
+    if parents[x] != None:
+        href = parents[x].get('href')
+        webbrowser.open('http://google.com' + href)
+    else:
+        print('not a valid url')
 else:
     print("provide search")
     
